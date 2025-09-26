@@ -1,103 +1,149 @@
-" =======================
-"  Plugin Manager: vim-plug
-" =======================
+ "- Ultra Setup (VSCode-like Experience)
+" ========================================
+
+" ----------------------------
+" Plugin Manager: vim-plug
+" ----------------------------
 call plug#begin('~/.vim/plugged')
 
-" --- UI & Appearance ---
-Plug 'morhetz/gruvbox'                      " Gruvbox theme
-Plug 'ryanoasis/vim-devicons'               " Icons for files
-Plug 'vim-airline/vim-airline-themes'       " Airline themes for Gruvbox
+" === UI & Appearance ===
+Plug 'morhetz/gruvbox'                     
+Plug 'vim-irline/vim-airline-themes'      
+Plug 'ryanoasis/vim-devicons'              
+Plug 'junegunn/goyo.vim'                    
+Plug 'junegunn/limelight.vim'               
+Plug 'akinsho/bufferline.nvim'              
+Plug 'nvim-lualine/lualine.nvim'            
+Plug 'glepnir/dashboard-nvim'               
+Plug 'folke/which-key.nvim'                 
 
-" --- File Navigation ---
-Plug 'preservim/nerdtree'                    " File explorer
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy finder
-Plug 'junegunn/fzf.vim'                       " FZF integration
+" === File Navigation & Fuzzy Finder ===
+Plug 'preservim/nerdtree'                   
+Plug 'Xuyuanp/nerdtree-git-plugin'          
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'                      
+Plug 'airblade/vim-rooter'                  
+Plug 'ThePrimeagen/harpoon'                  
 
-" --- Git Integration ---
-Plug 'tpope/vim-fugitive'                     " Git wrapper
-Plug 'airblade/vim-gitgutter'                 " Git diff in gutter
+" === Language Server Protocol (LSP) ===
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lua/plenary.nvim'                  
+Plug 'ray-x/lsp_signature.nvim'               
+Plug 'folke/neodev.nvim'                       
 
-" --- Code Editing ---
-Plug 'neoclide/coc.nvim', {'branch': 'release'}  " LSP + Completion
-Plug 'jiangmiao/auto-pairs'                    " Auto close brackets/quotes
-Plug 'tpope/vim-commentary'                    " Easy commenting
-Plug 'tpope/vim-surround'                      " Surround editing
-Plug 'dense-analysis/ale'                      " Async linting/fixing
+" === Autocomplete ===
+Plug 'SirVer/ultisnips'                      
+Plug 'honza/vim-snippets'                    
+Plug 'zchee/deoplete-clang'                  
+Plug 'zchee/deoplete-jedi'                   
 
-" --- Syntax & Language ---
-Plug 'sheerun/vim-polyglot'                    " Language packs
-Plug 'preservim/tagbar'                        " Code structure viewer
+" === Git Tools ===
+Plug 'tpope/vim-fugitive'                    
+Plug 'airblade/vim-gitgutter'                
+Plug 'sindrets/diffview.nvim'                 
+Plug 'tpope/vim-rhubarb'                     
+Plug 'lewis6991/gitsigns.nvim'               
 
-" --- Productivity ---
-Plug 'tpope/vim-repeat'                        " Repeat last change with .
-Plug 'easymotion/vim-easymotion'              " Fast navigation
-Plug 'mbbill/undotree'                         " Undo tree visualizer
+" === Tools ===
+Plug 'scrooloose/nerdcommenter'              
+Plug 'preservim/tagbar', {'do': 'majutsushi/tagbar.git'}                      
+Plug 'mbbill/undotree'                       
+Plug 'norcalli/nvim-colorizer.lua'          
+Plug 'sheerun/vim-polyglot'                  
 
-" --- Snippets ---
-Plug 'honza/vim-snippets'                      " Snippets collection
-Plug 'SirVer/ultisnips'                        " Snippet engine
+" === Edition Plugins ===
+Plug 'junegunn/vim-easy-align'               
+Plug 'godlygeek/tabular'                     
+Plug 'jiangmiao/auto-pairs'                  
+Plug 'alvan/vim-closetag'                    
+Plug 'wellle/targets.vim'                    
+Plug 'bkad/CamelCaseMotion'                  
+Plug 'jlanzarotta/bufexplorer'               
+Plug 'matze/vim-move'                        
+
 
 call plug#end()
 
-" =======================
-"  ALE settings — stop lint while typing
-" =======================
-let g:ale_lint_on_text_changed = 'never'    " Stop linting while typing
-let g:ale_lint_on_insert_leave = 1          " Lint when leaving insert mode
-let g:ale_lint_on_save = 1                  " Lint when saving
-
-" =======================
-"  General Settings
-" =======================
+" ----------------------------
+" General Settings
+" ----------------------------
+syntax on
 set number
 set relativenumber
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set smartindent
-set wrap
+set encoding=utf-8
+set fileencoding=utf-8
+set clipboard=unnamedplus
+set hidden
+set mouse=a
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+set splitbelow
+set splitright
+set termguicolors
 set cursorline
-syntax enable
-set background=dark
-colorscheme gruvbox
 
-" =======================
-"  Airline Gruvbox Theme
-" =======================
+" ----------------------------
+" Theme
+" ----------------------------
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+set background=dark
+
+" ----------------------------
+" Airline Config
+" ----------------------------
+let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='gruvbox'
 
-" =======================
-"  Keymaps
-" =======================
-nnoremap <C-n> :NERDTreeToggle<CR>
-nnoremap <C-p> :Files<CR>
-nnoremap <leader>f :Rg<CR>
-nnoremap <leader>t :TagbarToggle<CR>
-nnoremap <leader>u :UndotreeToggle<CR>
+" ----------------------------
+" NERDTree Config
+" ----------------------------
+map <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
 
-" =======================
-"  Coc.nvim Autocompletion
-" =======================
+" ----------------------------
+" FZF Config
+" ----------------------------
+nnoremap <C-p> :Files<CR>
+nnoremap <C-f> :Rg<CR>
+
+" ----------------------------
+" coc.nvim (LSP)
+" ----------------------------
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ CheckBackspace() ? "\<TAB>" :
+      \ pumvisible() ? "\<C-n>" :
       \ coc#refresh()
 
-inoremap <silent><expr> <S-TAB>
-      \ pumvisible() ? "\<C-p>" :
-      \ "\<C-h>"
+let g:coc_global_extensions = [
+      \ 'coc-json',
+      \ 'coc-tsserver',
+      \ 'coc-pyright',
+      \ 'coc-clangd',
+      \ 'coc-go',
+      \ 'coc-html',
+      \ 'coc-css',
+      \ 'coc-snippets'
+      \]
 
-inoremap <silent><expr> <CR>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ "\<CR>"
+" ----------------------------
+" Auto Pairs
+" ----------------------------
+let g:AutoPairsMapBS = 1
 
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" ----------------------------
+" Tagbar
+" ----------------------------
+nnoremap <F8> :TagbarToggle<CR>
 
-" =======================
-"  FZF settings
-" =======================
-let g:fzf_layout = { 'down': '40%' }
+" ----------------------------
+" Misc Keymaps
+" ----------------------------
+nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>fg :GFiles<CR>
+nnoremap <Leader>fb :Buffers<CR>
+nnoremap <Leader>fh :Helptags<CR>
+nnoremap <Leader>us :UndotreeToggle<CR>
 
