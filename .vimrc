@@ -31,6 +31,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'                  
 Plug 'ray-x/lsp_signature.nvim'               
 Plug 'folke/neodev.nvim'                       
+Plug 'tpope/vim-fugitive'
 
 " === Autocomplete ===
 Plug 'SirVer/ultisnips'                      
