@@ -1,0 +1,77 @@
+#!/bin/bash
+
+# USAGE: verifier --proj-dir=DIR_PATH --proj-name=STRING --tests-dir=DIR_PATH
+
+SYNTAX="Usage:\n  $(basename "$0") --proj-dir=DIR_PATH --proj-name=STRING --tests-dir=DIR_PATH"
+
+# Parse command-line arguments
+for i in "$@"; do
+    case $i in
+        --h*|-h*|--help*|-help*)
+            echo -e "$SYNTAX"
+            exit 1
+            ;;
+        --proj-dir=*)
+            PROJ_HOME="${i#*=}"
+            ;;
+        --proj-name=*)
+            NAME="${i#*=}"
+            ;;
+        --tests-dir=*)
+            TESTS_DIR="${i#*=}"
+            ;;
+        *)
+            echo -e "$SYNTAX"
+            exit 1
+            ;;
+    esac
+done
+
+# Check directories
+[[ -d "$PROJ_HOME" ]] || { echo >&2 "Project directory does not exist: $PROJ_HOME"; exit 1; }
+[[ -d "$TESTS_DIR" ]] || { echo >&2 "Tests directory does not exist: $TESTS_DIR"; exit 1; }
+
+pass=0
+fail=0
+WRK_DIR=$(pwd)
+
+# Run tests
+cd "$TESTS_DIR" || exit 1
+TESTS=$(find . -maxdepth 1 -type f -name "*.in" | xargs -n1 basename | cut -d'.' -f1)
+
+for test in $TESTS; do
+    echo "===================" >> "$WRK_DIR/run.log"
+    PROG_UT="$PROJ_HOME/$NAME"
+
+    # Run the program
+    "$PROG_UT" < "$test.in" > "$PROJ_HOME/my_$test.out" 2>&1
+
+    # Compare output
+    if diff -iw "$test.out" "$PROJ_HOME/my_$test.out" > /dev/null 2>&1; then
+        pass=$((pass + 1))
+        echo "$test: PASSED" >> "$WRK_DIR/run.log"
+    else
+        fail=$((fail + 1))
+        echo "$test: FAILED" >> "$WRK_DIR/run.log"
+        echo "Expected output:" >> "$WRK_DIR/run.log"
+        cat "$test.out" >> "$WRK_DIR/run.log"
+        echo "Got output:" >> "$WRK_DIR/run.log"
+        cat "$PROJ_HOME/my_$test.out" >> "$WRK_DIR/run.log"
+    fi
+
+    # Log input and separators
+    echo "Given input:" >> "$WRK_DIR/run.log"
+    cat "$test.in" >> "$WRK_DIR/run.log"
+    echo "===================" >> "$WRK_DIR/run.log"
+    echo "" >> "$WRK_DIR/run.log"
+
+    rm -f "$PROJ_HOME/my_$test.out"
+done
+
+# Summary
+echo "+++++++++++++++++++" >> "$WRK_DIR/run.log"
+echo "TESTS_PASSED: $pass" >> "$WRK_DIR/run.log"
+echo "TESTS_FAILED: $fail" >> "$WRK_DIR/run.log"
+echo "+++++++++++++++++++" >> "$WRK_DIR/run.log"
+echo "" >> "$WRK_DIR/run.log"
+
