@@ -1,0 +1,626 @@
+{
+  "c": {
+    "main": {
+      "prefix": "main",
+      "body": [
+        "int main(int argc, char *argv[]) {",
+        "\t${1:// code}",
+        "\treturn 0;",
+        "}"
+      ],
+      "description": "Main function"
+    },
+    "include": {
+      "prefix": "inc",
+      "body": "#include <${1:stdio}.h>",
+      "description": "Include header"
+    },
+    "include_local": {
+      "prefix": "incl",
+      "body": "#include \"${1:header}.h\"",
+      "description": "Include local header"
+    },
+    "define": {
+      "prefix": "def",
+      "body": "#define ${1:MACRO} ${2:value}",
+      "description": "Define macro"
+    },
+    "ifndef": {
+      "prefix": "ifndef",
+      "body": [
+        "#ifndef ${1:HEADER}_H",
+        "#define ${1:HEADER}_H",
+        "",
+        "${2:// content}",
+        "",
+        "#endif // ${1:HEADER}_H"
+      ],
+      "description": "Header guard"
+    },
+    "pragma_once": {
+      "prefix": "pragma",
+      "body": "#pragma once",
+      "description": "Pragma once"
+    },
+    "printf": {
+      "prefix": "pf",
+      "body": "printf(\"${1:%s}\\n\", ${2:args});",
+      "description": "Printf statement"
+    },
+    "fprintf": {
+      "prefix": "fpf",
+      "body": "fprintf(${1:stderr}, \"${2:%s}\\n\", ${3:args});",
+      "description": "Fprintf statement"
+    },
+    "scanf": {
+      "prefix": "sf",
+      "body": "scanf(\"${1:%d}\", &${2:var});",
+      "description": "Scanf statement"
+    },
+    "if": {
+      "prefix": "if",
+      "body": [
+        "if (${1:condition}) {",
+        "\t${2:// code}",
+        "}"
+      ],
+      "description": "If statement"
+    },
+    "else": {
+      "prefix": "else",
+      "body": [
+        "else {",
+        "\t${1:// code}",
+        "}"
+      ],
+      "description": "Else statement"
+    },
+    "elif": {
+      "prefix": "elif",
+      "body": [
+        "else if (${1:condition}) {",
+        "\t${2:// code}",
+        "}"
+      ],
+      "description": "Else if statement"
+    },
+    "for": {
+      "prefix": "for",
+      "body": [
+        "for (${1:int i = 0}; ${2:i < n}; ${3:i++}) {",
+        "\t${4:// code}",
+        "}"
+      ],
+      "description": "For loop"
+    },
+    "fori": {
+      "prefix": "fori",
+      "body": [
+        "for (int ${1:i} = 0; ${1:i} < ${2:n}; ${1:i}++) {",
+        "\t${3:// code}",
+        "}"
+      ],
+      "description": "For loop with int i"
+    },
+    "while": {
+      "prefix": "while",
+      "body": [
+        "while (${1:condition}) {",
+        "\t${2:// code}",
+        "}"
+      ],
+      "description": "While loop"
+    },
+    "do_while": {
+      "prefix": "do",
+      "body": [
+        "do {",
+        "\t${1:// code}",
+        "} while (${2:condition});"
+      ],
+      "description": "Do-while loop"
+    },
+    "switch": {
+      "prefix": "switch",
+      "body": [
+        "switch (${1:expression}) {",
+        "\tcase ${2:value}:",
+        "\t\t${3:// code}",
+        "\t\tbreak;",
+        "\tdefault:",
+        "\t\t${4:// code}",
+        "\t\tbreak;",
+        "}"
+      ],
+      "description": "Switch statement"
+    },
+    "case": {
+      "prefix": "case",
+      "body": [
+        "case ${1:value}:",
+        "\t${2:// code}",
+        "\tbreak;"
+      ],
+      "description": "Case statement"
+    },
+    "struct": {
+      "prefix": "struct",
+      "body": [
+        "struct ${1:name} {",
+        "\t${2:// members}",
+        "};"
+      ],
+      "description": "Struct definition"
+    },
+    "typedef_struct": {
+      "prefix": "tds",
+      "body": [
+        "typedef struct ${1:name} {",
+        "\t${2:// members}",
+        "} ${1:name}_t;"
+      ],
+      "description": "Typedef struct"
+    },
+    "enum": {
+      "prefix": "enum",
+      "body": [
+        "enum ${1:name} {",
+        "\t${2:// values}",
+        "};"
+      ],
+      "description": "Enum definition"
+    },
+    "union": {
+      "prefix": "union",
+      "body": [
+        "union ${1:name} {",
+        "\t${2:// members}",
+        "};"
+      ],
+      "description": "Union definition"
+    },
+    "function": {
+      "prefix": "func",
+      "body": [
+        "${1:void} ${2:function_name}(${3:void}) {",
+        "\t${4:// code}",
+        "}"
+      ],
+      "description": "Function definition"
+    },
+    "malloc": {
+      "prefix": "malloc",
+      "body": "${1:type} *${2:ptr} = (${1:type} *)malloc(${3:size} * sizeof(${1:type}));",
+      "description": "Malloc allocation"
+    },
+    "calloc": {
+      "prefix": "calloc",
+      "body": "${1:type} *${2:ptr} = (${1:type} *)calloc(${3:count}, sizeof(${1:type}));",
+      "description": "Calloc allocation"
+    },
+    "realloc": {
+      "prefix": "realloc",
+      "body": "${1:ptr} = (${2:type} *)realloc(${1:ptr}, ${3:new_size} * sizeof(${2:type}));",
+      "description": "Realloc"
+    },
+    "free": {
+      "prefix": "free",
+      "body": "free(${1:ptr});",
+      "description": "Free memory"
+    },
+    "fopen": {
+      "prefix": "fopen",
+      "body": "FILE *${1:fp} = fopen(\"${2:filename}\", \"${3:r}\");",
+      "description": "File open"
+    },
+    "fclose": {
+      "prefix": "fclose",
+      "body": "fclose(${1:fp});",
+      "description": "File close"
+    },
+    "comment_block": {
+      "prefix": "/*",
+      "body": [
+        "/*",
+        " * ${1:description}",
+        " */"
+      ],
+      "description": "Block comment"
+    },
+    "function_comment": {
+      "prefix": "/**",
+      "body": [
+        "/**",
+        " * @brief ${1:Brief description}",
+        " * ",
+        " * @param ${2:param} ${3:Parameter description}",
+        " * @return ${4:Return description}",
+        " */"
+      ],
+      "description": "Function documentation comment"
+    }
+  },
+  "cpp": {
+    "main": {
+      "prefix": "main",
+      "body": [
+        "int main(int argc, char *argv[]) {",
+        "\t${1:// code}",
+        "\treturn 0;",
+        "}"
+      ],
+      "description": "Main function"
+    },
+    "include": {
+      "prefix": "inc",
+      "body": "#include <${1:iostream}>",
+      "description": "Include header"
+    },
+    "include_local": {
+      "prefix": "incl",
+      "body": "#include \"${1:header}.h\"",
+      "description": "Include local header"
+    },
+    "namespace": {
+      "prefix": "ns",
+      "body": [
+        "namespace ${1:name} {",
+        "\t${2:// code}",
+        "}"
+      ],
+      "description": "Namespace"
+    },
+    "using_namespace": {
+      "prefix": "using",
+      "body": "using namespace ${1:std};",
+      "description": "Using namespace"
+    },
+    "cout": {
+      "prefix": "cout",
+      "body": "std::cout << ${1:output} << std::endl;",
+      "description": "Cout statement"
+    },
+    "cin": {
+      "prefix": "cin",
+      "body": "std::cin >> ${1:variable};",
+      "description": "Cin statement"
+    },
+    "cerr": {
+      "prefix": "cerr",
+      "body": "std::cerr << ${1:error} << std::endl;",
+      "description": "Cerr statement"
+    },
+    "class": {
+      "prefix": "class",
+      "body": [
+        "class ${1:ClassName} {",
+        "public:",
+        "\t${1:ClassName}();",
+        "\t~${1:ClassName}();",
+        "\t",
+        "private:",
+        "\t${2:// members}",
+        "};"
+      ],
+      "description": "Class definition"
+    },
+    "class_full": {
+      "prefix": "classf",
+      "body": [
+        "class ${1:ClassName} {",
+        "public:",
+        "\t${1:ClassName}();",
+        "\t${1:ClassName}(const ${1:ClassName}& other);",
+        "\t${1:ClassName}& operator=(const ${1:ClassName}& other);",
+        "\t~${1:ClassName}();",
+        "\t",
+        "private:",
+        "\t${2:// members}",
+        "};"
+      ],
+      "description": "Class with rule of three"
+    },
+    "struct": {
+      "prefix": "struct",
+      "body": [
+        "struct ${1:Name} {",
+        "\t${2:// members}",
+        "};"
+      ],
+      "description": "Struct definition"
+    },
+    "constructor": {
+      "prefix": "ctor",
+      "body": [
+        "${1:ClassName}::${1:ClassName}(${2:params}) ${3:: ${4:member}(${5:value})} {",
+        "\t${6:// code}",
+        "}"
+      ],
+      "description": "Constructor definition"
+    },
+    "destructor": {
+      "prefix": "dtor",
+      "body": [
+        "${1:ClassName}::~${1:ClassName}() {",
+        "\t${2:// cleanup}",
+        "}"
+      ],
+      "description": "Destructor definition"
+    },
+    "template": {
+      "prefix": "template",
+      "body": "template <typename ${1:T}>",
+      "description": "Template declaration"
+    },
+    "template_class": {
+      "prefix": "tclass",
+      "body": [
+        "template <typename ${1:T}>",
+        "class ${2:ClassName} {",
+        "public:",
+        "\t${2:ClassName}();",
+        "\t~${2:ClassName}();",
+        "\t",
+        "private:",
+        "\t${3:// members}",
+        "};"
+      ],
+      "description": "Template class"
+    },
+    "for": {
+      "prefix": "for",
+      "body": [
+        "for (${1:int i = 0}; ${2:i < n}; ${3:++i}) {",
+        "\t${4:// code}",
+        "}"
+      ],
+      "description": "For loop"
+    },
+    "fori": {
+      "prefix": "fori",
+      "body": [
+        "for (int ${1:i} = 0; ${1:i} < ${2:n}; ++${1:i}) {",
+        "\t${3:// code}",
+        "}"
+      ],
+      "description": "For loop with int i"
+    },
+    "for_range": {
+      "prefix": "forr",
+      "body": [
+        "for (${1:auto}& ${2:item} : ${3:container}) {",
+        "\t${4:// code}",
+        "}"
+      ],
+      "description": "Range-based for loop"
+    },
+    "for_each": {
+      "prefix": "foreach",
+      "body": [
+        "for (const auto& ${1:item} : ${2:container}) {",
+        "\t${3:// code}",
+        "}"
+      ],
+      "description": "For each loop"
+    },
+    "if": {
+      "prefix": "if",
+      "body": [
+        "if (${1:condition}) {",
+        "\t${2:// code}",
+        "}"
+      ],
+      "description": "If statement"
+    },
+    "else": {
+      "prefix": "else",
+      "body": [
+        "else {",
+        "\t${1:// code}",
+        "}"
+      ],
+      "description": "Else statement"
+    },
+    "elif": {
+      "prefix": "elif",
+      "body": [
+        "else if (${1:condition}) {",
+        "\t${2:// code}",
+        "}"
+      ],
+      "description": "Else if statement"
+    },
+    "while": {
+      "prefix": "while",
+      "body": [
+        "while (${1:condition}) {",
+        "\t${2:// code}",
+        "}"
+      ],
+      "description": "While loop"
+    },
+    "do_while": {
+      "prefix": "do",
+      "body": [
+        "do {",
+        "\t${1:// code}",
+        "} while (${2:condition});"
+      ],
+      "description": "Do-while loop"
+    },
+    "switch": {
+      "prefix": "switch",
+      "body": [
+        "switch (${1:expression}) {",
+        "\tcase ${2:value}:",
+        "\t\t${3:// code}",
+        "\t\tbreak;",
+        "\tdefault:",
+        "\t\t${4:// code}",
+        "\t\tbreak;",
+        "}"
+      ],
+      "description": "Switch statement"
+    },
+    "case": {
+      "prefix": "case",
+      "body": [
+        "case ${1:value}:",
+        "\t${2:// code}",
+        "\tbreak;"
+      ],
+      "description": "Case statement"
+    },
+    "try_catch": {
+      "prefix": "try",
+      "body": [
+        "try {",
+        "\t${1:// code}",
+        "} catch (${2:const std::exception& e}) {",
+        "\t${3:// handle exception}",
+        "}"
+      ],
+      "description": "Try-catch block"
+    },
+    "vector": {
+      "prefix": "vec",
+      "body": "std::vector<${1:type}> ${2:name};",
+      "description": "Vector declaration"
+    },
+    "map": {
+      "prefix": "map",
+      "body": "std::map<${1:key}, ${2:value}> ${3:name};",
+      "description": "Map declaration"
+    },
+    "unordered_map": {
+      "prefix": "umap",
+      "body": "std::unordered_map<${1:key}, ${2:value}> ${3:name};",
+      "description": "Unordered map declaration"
+    },
+    "set": {
+      "prefix": "set",
+      "body": "std::set<${1:type}> ${2:name};",
+      "description": "Set declaration"
+    },
+    "pair": {
+      "prefix": "pair",
+      "body": "std::pair<${1:first}, ${2:second}> ${3:name};",
+      "description": "Pair declaration"
+    },
+    "unique_ptr": {
+      "prefix": "uptr",
+      "body": "std::unique_ptr<${1:type}> ${2:name} = std::make_unique<${1:type}>(${3:args});",
+      "description": "Unique pointer"
+    },
+    "shared_ptr": {
+      "prefix": "sptr",
+      "body": "std::shared_ptr<${1:type}> ${2:name} = std::make_shared<${1:type}>(${3:args});",
+      "description": "Shared pointer"
+    },
+    "lambda": {
+      "prefix": "lambda",
+      "body": "[${1:capture}](${2:params}) ${3:-> ${4:return_type}} { ${5:// code} }",
+      "description": "Lambda function"
+    },
+    "auto_lambda": {
+      "prefix": "alamb",
+      "body": "auto ${1:name} = [${2:capture}](${3:params}) { ${4:// code} };",
+      "description": "Auto lambda"
+    },
+    "enum_class": {
+      "prefix": "enum",
+      "body": [
+        "enum class ${1:Name} {",
+        "\t${2:// values}",
+        "};"
+      ],
+      "description": "Enum class"
+    },
+    "function": {
+      "prefix": "func",
+      "body": [
+        "${1:void} ${2:function_name}(${3:params}) {",
+        "\t${4:// code}",
+        "}"
+      ],
+      "description": "Function definition"
+    },
+    "inline_function": {
+      "prefix": "inline",
+      "body": [
+        "inline ${1:void} ${2:function_name}(${3:params}) {",
+        "\t${4:// code}",
+        "}"
+      ],
+      "description": "Inline function"
+    },
+    "virtual_function": {
+      "prefix": "virtual",
+      "body": "virtual ${1:void} ${2:function_name}(${3:params}) ${4:= 0};",
+      "description": "Virtual function"
+    },
+    "override": {
+      "prefix": "override",
+      "body": "${1:void} ${2:function_name}(${3:params}) override {",
+      "description": "Override function"
+    },
+    "static_assert": {
+      "prefix": "static_assert",
+      "body": "static_assert(${1:condition}, \"${2:message}\");",
+      "description": "Static assert"
+    },
+    "const_cast": {
+      "prefix": "const_cast",
+      "body": "const_cast<${1:type}>(${2:expression})",
+      "description": "Const cast"
+    },
+    "dynamic_cast": {
+      "prefix": "dynamic_cast",
+      "body": "dynamic_cast<${1:type}>(${2:expression})",
+      "description": "Dynamic cast"
+    },
+    "static_cast": {
+      "prefix": "static_cast",
+      "body": "static_cast<${1:type}>(${2:expression})",
+      "description": "Static cast"
+    },
+    "reinterpret_cast": {
+      "prefix": "reinterpret_cast",
+      "body": "reinterpret_cast<${1:type}>(${2:expression})",
+      "description": "Reinterpret cast"
+    },
+    "comment_block": {
+      "prefix": "/*",
+      "body": [
+        "/*",
+        " * ${1:description}",
+        " */"
+      ],
+      "description": "Block comment"
+    },
+    "doxygen_comment": {
+      "prefix": "/**",
+      "body": [
+        "/**",
+        " * @brief ${1:Brief description}",
+        " * ",
+        " * @param ${2:param} ${3:Parameter description}",
+        " * @return ${4:Return description}",
+        " */"
+      ],
+      "description": "Doxygen comment"
+    },
+    "file_header": {
+      "prefix": "header",
+      "body": [
+        "/**",
+        " * @file ${1:filename}",
+        " * @brief ${2:Brief description}",
+        " * @author ${3:Your Name}",
+        " * @date ${4:CURRENT_DATE}",
+        " */"
+      ],
+      "description": "File header comment"
+    }
+  }
+}

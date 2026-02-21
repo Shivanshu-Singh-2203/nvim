@@ -1,0 +1,93 @@
+# ==============================
+# Helix Configuration
+# ==============================
+
+# theme = "doomo_one_fixed"
+theme = "monokai_pro"
+
+# ------------------------------
+# Editor Settings
+# ------------------------------
+[editor]
+scrolloff = 5
+mouse = true
+line-number = "relative"       # "absolute", "relative", or "none"
+cursorline = true
+idle-timeout = 10               # seconds before cursor hides
+completion-trigger-len = 1
+completion-replace = true
+true-color = true
+text-width = 100
+insert-final-newline = true
+trim-final-newlines = true
+popup-border = "menu"           # border style for popups
+indent-heuristic = "hybrid"     # "hybrid", "space", "tab"
+editor-config = true            # respect .editorconfig
+
+
+
+# ------------------------------
+# Cursor Shape per Mode
+# ------------------------------
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+
+# ------------------------------
+# Statusline Customization
+# ------------------------------
+[editor.statusline]
+mode.normal = "Normal"
+mode.insert = "Insert"
+mode.select = "Select"
+
+# "ui.statusline" = { fg = "#bbc2cf", bg = "#1c1f24" }
+# "ui.statusline.inactive" = { fg = "#5b6268", bg = "#1c1f24" }
+
+# "ui.statusline.normal" = { fg = "#1c1f24", bg = "#51afef", modifiers = ["bold"] }
+# "ui.statusline.insert" = { fg = "#1c1f24", bg = "#98be65", modifiers = ["bold"] }
+# "ui.statusline.select" = { fg = "#1c1f24", bg = "#c678dd", modifiers = ["bold"] }
+
+# ------------------------------
+# LSP Settings
+# ------------------------------
+[editor.lsp]
+display-progress-messages = false
+display-inlay-hints = true
+
+# ------------------------------
+# Indentation Guides
+# ------------------------------
+[editor.indent-guides]
+render = true
+character = "┊"        # You can also use "▏", "┆", "⸽"
+# skip-levels = 1
+# indent-guide-start = 1
+# Enable indent guides
+show-indent-guides = true
+
+# Make them colored by nesting level
+indent-guide-style = "rainbow"
+# Optional: adjust tab width if needed
+tab-width = 4
+
+# [keys.normal]
+# "C-s" = ":w"          # Save
+# "C-S-s" = ":wq"        # Save and quit
+
+# [keys.insert]
+# "C-s" = [":w", "normal_mode"]   # Save and return to normal mode
+# "C-S-s" = [":wq", "normal_mode"] # Save, quit, and return to normal mode
+# [editor.smart-tab]
+# # enable = false
+
+[keys.normal]
+"C-s"   = [":format", ":w"]          # Format and save
+"C-S-s" = [":format", ":wq"]         # Format, save, and quit
+
+[keys.insert]
+"C-s"   = [":format", ":w", "normal_mode"]    # Format, save, and go back to normal
+"C-S-s" = [":format", ":wq", "normal_mode"]   # Format, save, quit, back to normal
+
+[editor.smart-tab]
+enable = true              # Enable smart tab behavior

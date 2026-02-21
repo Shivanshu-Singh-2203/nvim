@@ -1,0 +1,238 @@
+#[[language]]
+# name = "c"
+# # indent = { tab-width = 4, unit = "    " }
+# # Tell clang-format specifically to use 4 spaces
+# formatter = { command = "clang-format", args = ["--style={BasedOnStyle: llvm, IndentWidth: 8, TabWidth: 8, UseTab: Never}"] }
+
+
+# [[language]]
+# name = "cpp"
+# # indent = { tab-width = 4, unit = "    " }
+# # Tell clang-format specifically to use 4 spaces
+# formatter = { command = "clang-format", args = ["--style={BasedOnStyle: llvm, IndentWidth: 8, TabWidth: 8, UseTab: Never}"] }
+
+# Final C/C++ Configuration for Helix
+# Add this to ~/.config/helix/languages.toml
+
+# Language Server Configuration
+[language-server.hx-lsp]
+command = "hx-lsp"
+
+[language-server.clangd]
+command = "clangd"
+args = ["--background-index", "--clang-tidy", "--completion-style=detailed"]
+
+# C Language Configuration
+[[language]]
+name = "c"
+scope = "source.c"
+injection-regex = "c"
+file-types = ["c", "h"]
+roots = ["compile_commands.json", ".git", "Makefile"]
+comment-token = "//"
+block-comment-tokens = { start = "/*", end = "*/" }
+language-servers = ["clangd", "hx-lsp"]
+indent = { tab-width = 8, unit = "        " }
+auto-format = true
+formatter = { command = "clang-format", args = ["--style={BasedOnStyle: llvm, IndentWidth: 8, TabWidth: 8, UseTab: Never}"] }
+
+# C++ Language Configuration
+[[language]]
+name = "cpp"
+scope = "source.cpp"
+injection-regex = "cpp"
+file-types = ["cc", "hh", "cpp", "hpp", "cxx", "hxx", "C", "H", "CPP"]
+roots = ["compile_commands.json", ".git", "Makefile", "CMakeLists.txt"]
+comment-token = "//"
+block-comment-tokens = { start = "/*", end = "*/" }
+language-servers = ["clangd", "hx-lsp"]
+indent = { tab-width = 8, unit = "        " }
+auto-format = true
+formatter = { command = "clang-format", args = ["--style={BasedOnStyle: llvm, IndentWidth: 8, TabWidth: 8, UseTab: Never}"] }
+
+# Alternative: If you prefer 4-space indentation, use this instead:
+#
+# [[language]]
+# name = "c"
+# scope = "source.c"
+# injection-regex = "c"
+# file-types = ["c", "h"]
+# roots = ["compile_commands.json", ".git", "Makefile"]
+# comment-token = "//"
+# block-comment-tokens = { start = "/*", end = "*/" }
+# language-servers = ["clangd", "hx-lsp"]
+# indent = { tab-width = 4, unit = "    " }
+# auto-format = true
+# formatter = { command = "clang-format", args = ["--style={BasedOnStyle: llvm, IndentWidth: 4, TabWidth: 4, UseTab: Never}"] }
+#
+# [[language]]
+# name = "cpp"
+# scope = "source.cpp"
+# injection-regex = "cpp"
+# file-types = ["cc", "hh", "cpp", "hpp", "cxx", "hxx", "C", "H", "CPP"]
+# roots = ["compile_commands.json", ".git", "Makefile", "CMakeLists.txt"]
+# comment-token = "//"
+# block-comment-tokens = { start = "/*", end = "*/" }
+# language-servers = ["clangd", "hx-lsp"]
+# indent = { tab-width = 4, unit = "    " }
+# auto-format = true
+# formatter = { command = "clang-format", args = ["--style={BasedOnStyle: llvm, IndentWidth: 4, TabWidth: 4, UseTab: Never}"] }
+
+[languages.rust]
+language-server = "rust-analyzer"
+roots = ["Cargo.toml"]
+formatter = { command = "rustfmt" }
+indent = { tab-width = 8, unit = "        " }
+
+# [[language]]
+# name = "rust"
+# language-server = "rust-analyzer"
+# roots = ["Cargo.toml"]
+# formatter = { command = "rustfmt", args = ["--edition", "2024", "--emit", "files"] }
+# indent = { tab-width = 8, unit = "        " }
+
+# Helix languages.toml for Node.js development
+# Place this in ~/.config/helix/languages.toml
+
+[[language]]
+name = "javascript"
+scope = "source.js"
+injection-regex = "(js|javascript)"
+file-types = ["js", "mjs", "cjs", "jsx"]
+shebangs = ["node"]
+roots = ["package.json", "tsconfig.json"]
+comment-token = "//"
+language-servers = ["typescript-language-server"]
+indent = { tab-width = 2, unit = "  " }
+auto-format = true
+
+[language.formatter]
+command = "prettier"
+args = ["--parser", "typescript"]
+
+[[language]]
+name = "typescript"
+scope = "source.ts"
+injection-regex = "(ts|typescript)"
+file-types = ["ts", "mts", "cts"]
+shebangs = ["deno", "bun", "ts-node"]
+roots = ["package.json", "tsconfig.json"]
+comment-token = "//"
+language-servers = ["typescript-language-server"]
+indent = { tab-width = 2, unit = "  " }
+auto-format = true
+
+[language.formatter]
+command = "prettier"
+args = ["--parser", "typescript"]
+
+[[language]]
+name = "tsx"
+scope = "source.tsx"
+injection-regex = "^(tsx)$"
+file-types = ["tsx"]
+roots = ["package.json", "tsconfig.json"]
+comment-token = "//"
+language-servers = ["typescript-language-server"]
+indent = { tab-width = 2, unit = "  " }
+auto-format = true
+
+[language.formatter]
+command = "prettier"
+args = ["--parser", "typescript"]
+
+[[language]]
+name = "json"
+scope = "source.json"
+injection-regex = "json"
+file-types = ["json", "jsonc"]
+roots = []
+language-servers = ["vscode-json-language-server"]
+indent = { tab-width = 2, unit = "  " }
+auto-format = true
+
+[language.formatter]
+command = "prettier"
+args = ["--parser", "json"]
+
+# Language Server configurations
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+config.hostInfo = "helix"
+
+[language-server.typescript-language-server.config.typescript.inlayHints]
+includeInlayEnumMemberValueHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = true
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayVariableTypeHints = true
+
+[language-server.typescript-language-server.config.javascript.inlayHints]
+includeInlayEnumMemberValueHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = true
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayVariableTypeHints = true
+
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
+
+# ESLint language server (optional, but recommended)
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+config.validate = "on"
+config.run = "onType"
+
+# [language-server.eslint.config]
+# codeActionsOnSave = { mode = "all", "source.fixAll.eslint" = true }
+# format = { enable = true }
+# nodePath = ""
+# quiet = false
+# rulesCustomizations = []
+# run = "onType"
+# validate = "on"
+# experimental = {}
+# problems = { shortenToSingleLine = false }
+
+[language-server.eslint.config.codeAction.disableRuleComment]
+enable = true
+location = "separateLine"
+commentStyle = "line"
+
+[language-server.eslint.config.codeAction.showDocumentation]
+enable = false
+
+[language-server.eslint.config.workingDirectory]
+mode = "auto"
+
+[[language]]
+name = "python"
+scope = "source.python"
+injection-regex = "python"
+file-types = ["py", "pyi", "py3", "pyw", "ptl", "rpy", "cpy"]
+shebangs = ["python"]
+roots = ["pyproject.toml", "setup.py", "poetry.lock", "pyrightconfig.json"]
+comment-token = "#"
+language-servers = ["pyright", "ruff"]
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = "black", args = ["--quiet", "-"] }
+
+[[language]]
+name = "python"
+auto-format = true
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+config = {}
+
+[language-server.ruff]
+command = "ruff-lsp"
+config = { settings = { args = [] } }
